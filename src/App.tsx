@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Greeting } from './components/Greeting';
 
 function App() {
+  const [isOn, setIsOn] = useState(false)
+
+  const toggleSetIsOn = () => {
+    setIsOn(current => !current);
+  }
+
+  const getEvenNumbers = (numbers: number[]) => {
+    return numbers.filter((number) => number % 2 == 0)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isOn && <div><Greeting name="John" /></div>}
+      {!isOn && <div>Greeting is hidden</div>}
+      
+      <button
+        type="button"
+        onClick={toggleSetIsOn}
+      >{isOn && <span>ON</span>}
+      {!isOn && <span>OFF</span>}</button>
+
+      <p>{getEvenNumbers([1, 2, 3, 4, 5, 6])}</p>
     </div>
   );
 }
